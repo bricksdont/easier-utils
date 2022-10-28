@@ -16,3 +16,5 @@ source activate /net/cephfs/shares/volk.cl.uzh/EASIER/WMT_Shared_Task/processing
 mkdir -p $via/align_lsf_2
 
 python $base/align_lsf_2/srt2via.py -i $csv/align_lsf_2.csv -o $via/align_lsf_2
+
+zip -r $via/align_lsf_2.via_files.zip $via/align_lsf_2

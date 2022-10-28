@@ -17,4 +17,4 @@ mkdir -p $via/align_lsf_2
 
 python $base/align_lsf_2/srt2via.py -i $csv/align_lsf_2.csv -o $via/align_lsf_2
 
-zip -r $via/align_lsf_2.via_files.zip $via/align_lsf_2
+(cd $via && zip -r align_lsf_2.via_files.zip ./align_lsf_2)

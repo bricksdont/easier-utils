@@ -79,7 +79,8 @@ def main():
     logging.basicConfig(level=logging.DEBUG)
     logging.debug(args)
 
-    convert_video(input_path=args.input, output_path=args.output, multithreaded=args.ffmpeg_multithreaded, crf=args.crf)
+    convert_video(input_path=args.input, output_path=args.output, multithreaded=args.ffmpeg_multithreaded,
+                  crf=args.ffmpeg_crf)
 
 
 if __name__ == '__main__':

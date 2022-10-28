@@ -111,6 +111,8 @@ def main():
 
         rows.append(row)
 
+    rows.sort()
+
     write_csv_output(rows)
 
 

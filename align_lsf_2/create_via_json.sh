@@ -3,8 +3,8 @@
 base=$(dirname "$0")/..
 base=$(realpath $base)
 
-via=$base/via
-csv=$base/csv
+via=$data/via
+csv=$data/csv
 
 mkdir -p $via
 

@@ -18,6 +18,8 @@ source activate /net/cephfs/shares/volk.cl.uzh/EASIER/WMT_Shared_Task/processing
 origin_sub=$origin/videos/videos_parallel
 target_sub=$target/videos_ts
 
+mkdir -p $target_sub
+
 for file_id in $file_ids; do
     echo "linking: $origin_sub/rts.$file_id.ts -> $target_sub/rts.$file_id.ts"
     ln -s $origin_sub/rts.$file_id.ts $target_sub/rts.$file_id.ts
@@ -26,7 +28,9 @@ done
 # subtitles
 
 origin_sub=$origin/subtitles/subtitles_parallel
-target_sub=$target/subtitles_srt
+target_sub=$target/subtitles
+
+mkdir -p $target_sub
 
 for file_id in $file_ids; do
     echo "linking: $origin_sub/rts.$file_id.srt -> $target_sub/rts.$file_id.srt"

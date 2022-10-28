@@ -19,6 +19,7 @@ origin_sub=$origin/videos/videos_parallel
 target_sub=$target/videos_ts
 
 for file_id in $file_ids; do
+    echo "linking: $origin_sub/rts.$file_id.ts -> $target_sub/rts.$file_id.ts"
     ln -s $origin_sub/rts.$file_id.ts $target_sub/rts.$file_id.ts
 done
 
@@ -28,5 +29,6 @@ origin_sub=$origin/subtitles/subtitles_parallel
 target_sub=$target/subtitles_srt
 
 for file_id in $file_ids; do
+    echo "linking: $origin_sub/rts.$file_id.srt -> $target_sub/rts.$file_id.srt"
     ln -s $origin_sub/rts.$file_id.srt $target_sub/rts.$file_id.srt
 done

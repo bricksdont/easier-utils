@@ -16,7 +16,12 @@ Convert ts videos to mp4, run:
 
 Convert srt subtitles to via, run:
 
-    ./submit_convert_subtitles.sh
+    ./create_via_csv.sh
+    ./create_via_json.sh
+
+and upload everything:
+
+    ./upload.sh
 
 ## License of SRT2VIA script
 

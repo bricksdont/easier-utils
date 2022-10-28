@@ -11,9 +11,13 @@ import subprocess
 
 from typing import Tuple
 
-# ffmpeg -i input.ts -c:v libx264 -crf 0 -c:a copy output.mp4
+# fix malformed audio bitstream (expected if converting TS to MP4):
+# ffmpeg -i input.ts -c:v libx264 -crf 18 -c:a copy -bsf:a aac_adtstoasc output.mp4
+#
+# OR re-encode audio as well:
+# ffmpeg -i input.ts -c:v libx264 -crf 18 -strict -2 -c:a aac output.mp4
 
-FFMPEG_TEMPLATE = "ffmpeg -threads {num_threads} -i {input_path} -crf {crf} -c:v libx264 -c:a copy {output_path}"
+FFMPEG_TEMPLATE = "ffmpeg -y -threads {num_threads} -i {input_path} -crf {crf} -c:v libx264 -c:a copy -bsf:a aac_adtstoasc {output_path}"
 
 
 def parse_args():

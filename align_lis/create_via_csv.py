@@ -49,14 +49,15 @@ def load_files_as_dict(folder_path: str) -> Dict[str, str]:
     return filepaths_by_id
 
 
-def get_video_url(file_id: str) -> str:
+def get_video_url(file_id: str, prefix: str) -> str:
     """
 
     :param file_id:
+    :param prefix:
     :return:
     """
 
-    filename = "rts.%s.mp4" % file_id
+    filename = "%s.%s.mp4" % (prefix, file_id)
 
     return PUBLIC_URL_PREFIX + "/" + filename
 
@@ -82,6 +83,8 @@ def parse_args():
                         help="Absolute path to input folder with videos.", required=True)
     parser.add_argument("--subtitles", type=str,
                         help="Absolute path to input folder with videos.", required=True)
+    parser.add_argument("--prefix", type=str,
+                        help="File name prefix such as 'rts' or 'rsi'.", required=True)
 
     args = parser.parse_args()
 
@@ -103,7 +106,7 @@ def main():
     for file_id, video_filepath in video_files.items():
         subtitle_filepath = subtitle_files[file_id]
 
-        video_url = get_video_url(file_id)
+        video_url = get_video_url(file_id, prefix=args.prefix)
 
         # ["project_name", "video_url", "srt_file_path", "srt_file_encoding"]
 

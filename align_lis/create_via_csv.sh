@@ -12,4 +12,4 @@ mkdir -p $csv
 eval "$(conda shell.bash hook)"
 source activate /shares/easier.volk.cl.uzh/WMT_Shared_Task/processing-shared-task-data/venvs/venv
 
-python $base/align_lis/create_via_csv.py --videos $data/videos_mp4 --subtitles $data/subtitles > $csv/align_lis.csv
+python $base/align_lis/create_via_csv.py --videos $data/videos_mp4 --subtitles $data/subtitles --prefix rsi > $csv/align_lis.csv

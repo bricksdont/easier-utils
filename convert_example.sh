@@ -1,5 +1,7 @@
 #! /bin/bash
 
+base=$1
+
 eval "$(conda shell.bash hook)"
 source activate /shares/easier.volk.cl.uzh/WMT_Shared_Task/processing-shared-task-data/venvs/venv
 

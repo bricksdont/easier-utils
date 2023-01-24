@@ -3,7 +3,7 @@
 base=$(dirname "$0")/..
 base=$(realpath $base)
 
-data=/scratch/mathmu/align_lsf_2
+data=/scratch/mathmu/align_lis
 
 via=$data/via
 

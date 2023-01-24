@@ -1,6 +1,6 @@
 #! /bin/bash
 
-module load generic anaconda3
+module load anaconda3
 
 base=`dirname "$0"`
 
@@ -13,7 +13,7 @@ mkdir -p $logs_sub
 SLURM_DEFAULT_FILE_PATTERN="slurm-%j.out"
 SLURM_LOG_ARGS="-o $logs_sub/$SLURM_DEFAULT_FILE_PATTERN -e $logs_sub/$SLURM_DEFAULT_FILE_PATTERN"
 
-SLURM_ARGS_GENERIC="--cpus-per-task=8 --time=01:00:00 --mem=8G --partition=generic"
+SLURM_ARGS_GENERIC="--cpus-per-task=8 --time=01:00:00 --mem=8G"
 
 sbatch \
     $SLURM_ARGS_GENERIC \

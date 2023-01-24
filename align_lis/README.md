@@ -1,15 +1,13 @@
-## Prepare LSF data for second round of human alignment
+## Prepare LIS data for first round of human alignment
 
-First canonicalize dates and prefix with “rts”.
+First canonicalize dates and prefix with “rts”. To test the renaming without actually executing it:
 
-Run this to test the script:
+    for filepath in /shares/easier.volk.cl.uzh/WP4/spoken-to-sign_sign-to-spoken/LIS-CH/RSI/Daily_news/videos/videos_parallel/*.ts;
+        do python3 canonicalize_date.py --input $filepath --dry-run --prefix "rsi."; done
 
-    python3 canonicalize_date.py --input $filepath --dry-run --prefix "rts."
+After that, remove the `--dry-run` argument to actually rename the files.
 
-Then canonicalize the file names of all relevant files, for instance
-with a bash for loop.
-
-After that, to link data, run:
+Link data, run:
 
     ./link_data.sh
 

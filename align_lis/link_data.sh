@@ -3,8 +3,8 @@
 base=$(dirname "$0")/..
 base=$(realpath $base)
 
-origin=/net/cephfs/shares/volk.cl.uzh/EASIER/WP4/spoken-to-sign_sign-to-spoken/LSF-CH/RTS/Daily_news
-target=/net/cephfs/scratch/mathmu/align_lsf_2
+origin=/shares/easier.volk.cl.uzh/WP4/spoken-to-sign_sign-to-spoken/LIS-CH/RSI/Daily_news
+target=/scratch/mathmu/align_lis
 
 eval "$(conda shell.bash hook)"
 source activate /shares/easier.volk.cl.uzh/WMT_Shared_Task/processing-shared-task-data/venvs/venv

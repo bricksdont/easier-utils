@@ -3,7 +3,7 @@
 First canonicalize dates and prefix with “rts”. To test the renaming without actually executing it:
 
     for filepath in /shares/easier.volk.cl.uzh/WP4/spoken-to-sign_sign-to-spoken/LIS-CH/RSI/Daily_news/videos/videos_parallel/*.ts;
-        do python3 canonicalize_date.py --input $filepath --dry-run --prefix "rsi."; done
+        do python3 ../canonicalize_date.py --input $filepath --dry-run --prefix "rsi."; done
 
 After that, remove the `--dry-run` argument to actually rename the files.
 
@@ -23,6 +23,10 @@ Convert srt subtitles to via, run:
 and upload everything:
 
     ./upload.sh
+
+The VIA files will then be available here:
+
+https://pub.cl.uzh.ch/projects/easier/via/
 
 ## License of SRT2VIA script
 

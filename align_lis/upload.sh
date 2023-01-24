@@ -3,7 +3,7 @@
 base=$(dirname "$0")/..
 base=$(realpath $base)
 
-data=/net/cephfs/scratch/mathmu/align_lsf_2
+data=/scratch/mathmu/align_lsf_2
 
 via=$data/via
 

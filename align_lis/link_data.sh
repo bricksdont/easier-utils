@@ -9,9 +9,11 @@ target=/scratch/mathmu/align_lis
 eval "$(conda shell.bash hook)"
 source activate /shares/easier.volk.cl.uzh/WMT_Shared_Task/processing-shared-task-data/venvs/venv
 
+prefix="rsi"
+
 # sets variable: file_ids
 
-. $base/align_lsf_2/define_ids.sh
+. $base/align_lis/define_ids.sh
 
 # videos
 
@@ -21,8 +23,8 @@ target_sub=$target/videos_ts
 mkdir -p $target_sub
 
 for file_id in $file_ids; do
-    echo "linking: $origin_sub/rts.$file_id.ts -> $target_sub/rts.$file_id.ts"
-    ln -s $origin_sub/rts.$file_id.ts $target_sub/rts.$file_id.ts
+    echo "linking: $origin_sub/$prefix.$file_id.ts -> $target_sub/$prefix.$file_id.ts"
+    ln -s $origin_sub/$prefix.$file_id.ts $target_sub/$prefix.$file_id.ts
 done
 
 # subtitles
@@ -33,6 +35,6 @@ target_sub=$target/subtitles
 mkdir -p $target_sub
 
 for file_id in $file_ids; do
-    echo "linking: $origin_sub/rts.$file_id.srt -> $target_sub/rts.$file_id.srt"
-    ln -s $origin_sub/rts.$file_id.srt $target_sub/rts.$file_id.srt
+    echo "linking: $origin_sub/$prefix.$file_id.srt -> $target_sub/$prefix.$file_id.srt"
+    ln -s $origin_sub/$prefix.$file_id.srt $target_sub/$prefix.$file_id.srt
 done

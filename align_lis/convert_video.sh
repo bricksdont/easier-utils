@@ -3,10 +3,10 @@
 base=$1
 file_id=$2
 
-data=/net/cephfs/scratch/mathmu/align_lsf_2
+data=/scratch/mathmu/align_lis
 
 eval "$(conda shell.bash hook)"
-source activate /net/cephfs/shares/volk.cl.uzh/EASIER/WMT_Shared_Task/processing-shared-task-data/venvs/venv
+source activate /shares/easier.volk.cl.uzh/WMT_Shared_Task/processing-shared-task-data/venvs/venv
 
 mkdir -p $data/videos_mp4
 

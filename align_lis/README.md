@@ -28,6 +28,16 @@ The VIA files will then be available here:
 
 https://pub.cl.uzh.ch/projects/easier/via/
 
+## Tips
+
+Check all videos to make sure they are regular daily news episodes.
+
+Check all subtitle files (e.g. using the script in this repo called `srt_stats.py`) to make sure the number of
+subtitles is reasonable.
+
+Open one resulting VIA project to make sure videos and subtitles are correctly paired together, and
+audio and subtitles roughly match.
+
 ## License of SRT2VIA script
 
 `src2via.py` was developed by Marco Giovanelli.

@@ -21,4 +21,4 @@ python $base/align_lis/srt2via.py -i $csv/align_lis.csv -o $via/align_lis
 
 (cd $via && tar -czvf align_lis.via_files.tar.gz align_lis)
 
-echo "scp mathmu@login.s3it.uzh.ch:$(realpath $via/align_lis.via_files.tar.gz)"
+echo "scp mathmu@login.s3it.uzh.ch:$(realpath $via/align_lis.via_files.tar.gz) ./"

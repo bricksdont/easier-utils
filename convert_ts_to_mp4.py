@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 
 """
-Will fix date formats and optionally preprend a prefix string to a filename.
+Converts videos in TS format to MP4, H264 encoding and CRF 18 compression.
 """
 
 import os

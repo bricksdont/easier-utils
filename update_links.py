@@ -18,6 +18,8 @@ def parse_args():
                         default="/shares/easier.volk.cl.uzh")
     parser.add_argument("--dry-run", action="store_true",
                         help="Do not change any symlinks, just print what would change hypothetically.")
+    parser.add_argument("--list-all", action="store_true",
+                        help="Do not change anything, simply list all links that are found.")
 
     args = parser.parse_args()
 
@@ -70,6 +72,10 @@ def main():
             full_path = os.path.join(r, file)
             if os.path.islink(full_path):
                 links_found += 1
+
+                if args.list_all:
+                    logging.debug("Found link: %s -> %s")
+                    continue
 
                 replace_link(full_path, before=args.string_before, after=args.string_after, dry_run=args.dry_run)
                 logging.debug("=" * 30)

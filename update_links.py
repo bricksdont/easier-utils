@@ -89,6 +89,8 @@ def main():
 
     real_folder_path = os.path.realpath(args.folder)
 
+    assert os.path.exists(real_folder_path), "Folder does not exist: '%s'" % args.folder
+
     links_found = 0
     broken_links_found = 0
 

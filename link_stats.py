@@ -51,8 +51,8 @@ def log_link(link_path: str) -> Tuple[bool, bool]:
 
     logging.debug("Found link:")
     logging.debug("%s -> %s" % (link_path, link_target))
-    logging.debug("Status: %s" % "BROKEN" if link_is_broken else "OK")
-    logging.debug("Path: %s" % "RELATIVE" if link_is_relative else "ABSOLUTE")
+    logging.debug("Status: %s" % ("BROKEN" if link_is_broken else "OK"))
+    logging.debug("Path: %s" % ("RELATIVE" if link_is_relative else "ABSOLUTE"))
     logging.debug("=" * 30)
 
     return link_is_broken, link_is_relative

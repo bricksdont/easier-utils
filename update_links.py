@@ -52,15 +52,21 @@ def replace_link(link_path: str, before: str, after: str, dry_run: bool = False)
     os.symlink(new_link_target, link_path)
 
 
-def log_link(link_path: str) -> None:
+def log_link(link_path: str) -> bool:
     """
 
     :param link_path:
     :return:
     """
-    link_target = os.readlink(link_path)
-    logging.debug("Found link: %s -> %s" % (link_path, link_target))
+    link_works = os.path.exists(link_path)
 
+    link_target = os.readlink(link_path)
+
+    status = "OK" if link_works else "BROKEN"
+
+    logging.debug("Found %s link: %s -> %s" % (status, link_path, link_target))
+
+    return link_works
 
 
 def main():
@@ -80,6 +86,7 @@ def main():
     real_folder_path = os.path.realpath(args.folder)
 
     links_found = 0
+    broken_links_found = 0
 
     for r, d, f in os.walk(real_folder_path):
         for file in f:
@@ -88,13 +95,18 @@ def main():
                 links_found += 1
 
                 if args.list_all:
-                    log_link(full_path)
+                    link_works = log_link(full_path)
+
+                    if not link_works:
+                        broken_links_found += 1
+
                     continue
 
                 replace_link(full_path, before=args.string_before, after=args.string_after, dry_run=args.dry_run)
                 logging.debug("=" * 30)
 
     logging.debug("Number of links found: %d" % links_found)
+    logging.debug("Number of broken links found: %d" % broken_links_found)
 
 
 if __name__ == '__main__':

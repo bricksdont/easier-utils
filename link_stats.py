@@ -75,25 +75,27 @@ def main():
     relative_links_found = 0
     directory_links_found = 0
 
-    for r, d, f in os.walk(real_folder_path):
+    for dirpath, dirnames, filenames in os.walk(real_folder_path):
 
         # check if the directory itself is a symlink
-        if os.path.islink(r):
-            directory_links_found += 1
+        for dirname in dirnames:
+            subdir_path = os.path.join(dirpath, dirname)
+            if os.path.islink(subdir_path):
+                directory_links_found += 1
 
-            is_broken, is_relative = log_link(r)
+                is_broken, is_relative = log_link(subdir_path)
 
-            if is_broken:
-                broken_links_found += 1
-            if is_relative:
-                relative_links_found += 1
+                if is_broken:
+                    broken_links_found += 1
+                if is_relative:
+                    relative_links_found += 1
 
-        for file in f:
-            full_path = os.path.join(r, file)
-            if os.path.islink(full_path):
+        for filename in filenames:
+            filepath = os.path.join(dirpath, filename)
+            if os.path.islink(filepath):
                 links_found += 1
 
-                is_broken, is_relative = log_link(full_path)
+                is_broken, is_relative = log_link(filepath)
 
                 if is_broken:
                     broken_links_found += 1

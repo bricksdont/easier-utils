@@ -63,6 +63,9 @@ def main():
     if args.dry_run:
         logging.debug("Dry run, will not actually change any symlinks.")
 
+        if args.list_all:
+            logging.debug("List all. Will not do anything but simply output links that are found.")
+
     real_folder_path = os.path.realpath(args.folder)
 
     links_found = 0

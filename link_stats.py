@@ -46,12 +46,14 @@ def log_link(link_path: str) -> Tuple[bool, bool]:
     """
     link_is_broken = is_broken(link_path)
     link_is_relative = is_relative(link_path)
+    is_dir = os.path.isdir(link_path)
 
     link_target = os.readlink(link_path)
 
     logging.debug("Found link:")
     logging.debug("%s -> %s" % (link_path, link_target))
     logging.debug("Status: %s" % ("BROKEN" if link_is_broken else "OK"))
+    logging.debug("Type: %s" % ("DIRECTORY" if is_dir else "FILE"))
     logging.debug("Path: %s" % ("RELATIVE" if link_is_relative else "ABSOLUTE"))
     logging.debug("=" * 30)
 

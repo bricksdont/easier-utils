@@ -52,6 +52,17 @@ def replace_link(link_path: str, before: str, after: str, dry_run: bool = False)
     os.symlink(new_link_target, link_path)
 
 
+def log_link(link_path: str) -> None:
+    """
+
+    :param link_path:
+    :return:
+    """
+    link_target = os.readlink(link_path)
+    logging.debug("Found link: %s -> %s" % (link_path, link_target))
+
+
+
 def main():
 
     args = parse_args()
@@ -77,7 +88,7 @@ def main():
                 links_found += 1
 
                 if args.list_all:
-                    logging.debug("Found link: %s -> %s")
+                    log_link(full_path)
                     continue
 
                 replace_link(full_path, before=args.string_before, after=args.string_after, dry_run=args.dry_run)

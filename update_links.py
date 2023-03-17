@@ -46,6 +46,7 @@ def replace_link(link_path: str, before: str, after: str, dry_run: bool = False)
     if dry_run:
         logging.debug("Could remove old link: %s -> %s" % (link_path, old_link_target))
         logging.debug("Could create new link: %s -> %s" % (link_path, new_link_target))
+        logging.debug("=" * 30)
 
         return
 
@@ -54,6 +55,8 @@ def replace_link(link_path: str, before: str, after: str, dry_run: bool = False)
 
     logging.debug("Creating new link: %s -> %s" % (link_path, new_link_target))
     os.symlink(new_link_target, link_path)
+
+    logging.debug("=" * 30)
 
 
 def log_link(link_path: str) -> bool:
@@ -109,7 +112,6 @@ def main():
                     continue
 
                 replace_link(full_path, before=args.string_before, after=args.string_after, dry_run=args.dry_run)
-                logging.debug("=" * 30)
 
     logging.debug("Number of links found: %d" % links_found)
     logging.debug("Number of broken links found: %d" % broken_links_found)

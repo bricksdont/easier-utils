@@ -38,12 +38,12 @@ def replace_link(link_path: str, before: str, after: str, dry_run: bool = False)
     new_link_target = old_link_target.replace(before, after)
 
     if dry_run:
-        logging.debug("Could remove old link: '%s'" % link_path)
+        logging.debug("Could remove old link: %s -> %s" % (link_path, old_link_target))
         logging.debug("Could create new link: %s -> %s" % (link_path, new_link_target))
 
         return
 
-    logging.debug("Removing old link: '%s'" % link_path)
+    logging.debug("Removing old link: %s -> %s" % (link_path, old_link_target))
     os.unlink(link_path)
 
     logging.debug("Creating new link: %s -> %s" % (link_path, new_link_target))

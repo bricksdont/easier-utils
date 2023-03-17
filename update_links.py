@@ -37,6 +37,10 @@ def replace_link(link_path: str, before: str, after: str, dry_run: bool = False)
     """
 
     old_link_target = os.readlink(link_path)
+
+    if before not in old_link_target:
+        return
+
     new_link_target = old_link_target.replace(before, after)
 
     if dry_run:

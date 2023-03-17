@@ -18,28 +18,27 @@ def parse_args():
                         default="/shares/easier.volk.cl.uzh")
     parser.add_argument("--dry-run", action="store_true",
                         help="Do not change any symlinks, just print what would change hypothetically.")
-    parser.add_argument("--list-all", action="store_true",
-                        help="Do not change anything, simply list all links that are found.")
 
     args = parser.parse_args()
 
     return args
 
 
-def replace_link(link_path: str, before: str, after: str, dry_run: bool = False) -> None:
+def replace_link(link_path: str, before: str, after: str, dry_run: bool = False) -> bool:
     """
 
     :param link_path:
     :param before:
     :param after:
     :param dry_run:
-    :return:
+    :return: True if this link was changed
     """
 
     old_link_target = os.readlink(link_path)
 
     if before not in old_link_target:
-        return
+        logging.debug("Skipping irrelevant link: %s -> %s" % (link_path, old_link_target))
+        return False
 
     new_link_target = old_link_target.replace(before, after)
 
@@ -48,7 +47,7 @@ def replace_link(link_path: str, before: str, after: str, dry_run: bool = False)
         logging.debug("Could create new link: %s -> %s" % (link_path, new_link_target))
         logging.debug("=" * 30)
 
-        return
+        return False
 
     logging.debug("Removing old link: %s -> %s" % (link_path, old_link_target))
     os.unlink(link_path)
@@ -58,22 +57,7 @@ def replace_link(link_path: str, before: str, after: str, dry_run: bool = False)
 
     logging.debug("=" * 30)
 
-
-def log_link(link_path: str) -> bool:
-    """
-
-    :param link_path:
-    :return:
-    """
-    link_works = os.path.exists(link_path)
-
-    link_target = os.readlink(link_path)
-
-    status = "OK" if link_works else "BROKEN"
-
-    logging.debug("Found %s link: %s -> %s" % (status, link_path, link_target))
-
-    return link_works
+    return True
 
 
 def main():
@@ -87,34 +71,29 @@ def main():
     if args.dry_run:
         logging.debug("Dry run, will not actually change any symlinks.")
 
-        if args.list_all:
-            logging.debug("List all. Will not do anything but simply output links that are found.")
-
     real_folder_path = os.path.realpath(args.folder)
 
     assert os.path.exists(real_folder_path), "Folder does not exist: '%s'" % args.folder
 
-    links_found = 0
-    broken_links_found = 0
+    links_found_total = 0
+    links_changed = 0
 
     for r, d, f in os.walk(real_folder_path):
         for file in f:
             full_path = os.path.join(r, file)
             if os.path.islink(full_path):
-                links_found += 1
+                links_found_total += 1
 
-                if args.list_all:
-                    link_works = log_link(full_path)
+                link_was_changed = replace_link(full_path,
+                                                before=args.string_before,
+                                                after=args.string_after,
+                                                dry_run=args.dry_run)
 
-                    if not link_works:
-                        broken_links_found += 1
+                if link_was_changed:
+                    links_changed += 1
 
-                    continue
-
-                replace_link(full_path, before=args.string_before, after=args.string_after, dry_run=args.dry_run)
-
-    logging.debug("Number of links found: %d" % links_found)
-    logging.debug("Number of broken links found: %d" % broken_links_found)
+    logging.debug("Total number of links found: %d" % links_found_total)
+    logging.debug("Links changed: %d" % links_changed)
 
 
 if __name__ == '__main__':

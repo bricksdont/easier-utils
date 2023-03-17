@@ -12,7 +12,7 @@ def parse_args():
                         help="Folder that is searched for links to be replaced.", required=True)
     parser.add_argument("--string-before", type=str,
                         help="String to be replaced in path that symlinks are pointing to.", required=False,
-                        default="/shares/volk.cl.uzh/EASIER")
+                        default="/net/cephfs/shares/volk.cl.uzh/EASIER")
     parser.add_argument("--string-after", type=str,
                         help="String to be inserted as replacement in path that symlinks are pointing to.", required=False,
                         default="/shares/easier.volk.cl.uzh")

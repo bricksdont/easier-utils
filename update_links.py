@@ -78,13 +78,28 @@ def main():
     links_found_total = 0
     links_changed = 0
 
-    for r, d, f in os.walk(real_folder_path):
-        for file in f:
-            full_path = os.path.join(r, file)
-            if os.path.islink(full_path):
+    for dirpath, dirnames, filenames in os.walk(real_folder_path):
+
+        # check if the directory itself is a symlink that needs to be replaced
+        for dirname in dirnames:
+            subdir_path = os.path.join(dirpath, dirname)
+            if os.path.islink(subdir_path):
                 links_found_total += 1
 
-                link_was_changed = replace_link(full_path,
+                link_was_changed = replace_link(subdir_path,
+                                                before=args.string_before,
+                                                after=args.string_after,
+                                                dry_run=args.dry_run)
+
+                if link_was_changed:
+                    links_changed += 1
+
+        for filename in filenames:
+            filepath = os.path.join(dirpath, filename)
+            if os.path.islink(filepath):
+                links_found_total += 1
+
+                link_was_changed = replace_link(filepath,
                                                 before=args.string_before,
                                                 after=args.string_after,
                                                 dry_run=args.dry_run)

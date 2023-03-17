@@ -83,6 +83,7 @@ def main():
         for dirname in dirnames:
             subdir_path = os.path.join(dirpath, dirname)
             if os.path.islink(subdir_path):
+                links_found += 1
                 directory_links_found += 1
 
                 is_broken, is_relative = log_link(subdir_path)

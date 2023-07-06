@@ -3,6 +3,7 @@
 import argparse
 import logging
 import os
+import re
 
 from typing import Set
 
@@ -48,7 +49,7 @@ def parse_args():
 
     parser.add_argument("--input-folder", type=str, required=True,
                         help="Which files to potentially modify.")
-    parser.add_argument("--dry-run", type=bool, required=False, default=False,
+    parser.add_argument("--dry-run", action="store_true", required=False, default=False,
                         help="Do not actually rename.")
 
     args = parser.parse_args()
@@ -88,6 +89,19 @@ def collect_from_folder(folder_path: str) -> Set[str]:
     return filepaths
 
 
+def has_column_id_already(filename: str) -> bool:
+    """
+
+    :param filename:
+    :return:
+    """
+    parts = filename.split(".")
+
+    column_id = parts[1]
+
+    return len(re.findall(r"\d{6}", column_id)) == 1
+
+
 def insert_column_in_filename(filename: str) -> str:
     """
     Example: srf.2016-09-01.srt
@@ -96,6 +110,8 @@ def insert_column_in_filename(filename: str) -> str:
     :return:
     """
     assert is_canonical(filename)
+
+    assert not has_column_id_already(filename), "Filename '%s' appears to already have a column ID"
 
     parts = filename.split(".")
 

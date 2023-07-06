@@ -9,6 +9,8 @@ import srt
 import argparse
 import logging
 
+import numpy as np
+
 from typing import List
 
 
@@ -21,6 +23,29 @@ def parse_args():
     args = parser.parse_args()
 
     return args
+
+
+def get_duration(subtitle: srt.Subtitle) -> float:
+    """
+
+    :param subtitle:
+    :return:
+    """
+
+    duration = subtitle.end - subtitle.start
+
+    return float(duration.total_seconds())
+
+
+def get_average_duration(subtitles: List[srt.Subtitle]) -> float:
+
+    durations = []
+
+    for subtitle in subtitles:
+        duration = get_duration(subtitle)
+        durations.append(duration)
+
+    return float(np.mean(durations))
 
 
 def read_srt(filepath: str) -> List[srt.Subtitle]:
@@ -60,9 +85,12 @@ def main():
 
         num = len(subtitles)
 
+        average_duration = get_average_duration(subtitles)
+
         subtitle_stats.append({"filename": filename,
                                "num": num,
-                               "filepath": filepath})
+                               "filepath": filepath,
+                               "average_duration": average_duration})
 
     subtitle_stats_sorted = sorted(subtitle_stats, key=lambda d: d['num'])
 

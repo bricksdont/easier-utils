@@ -9,7 +9,7 @@ import argparse
 import logging
 
 from collections import Counter
-from typing import List
+from typing import List, Optional
 
 
 def parse_args():
@@ -36,13 +36,16 @@ def get_ambiguous_elements(filenames: List[str]) -> List[str]:
     return [k for k, v in Counter(filenames).items() if v > 1]
 
 
-def remove_ignore_components(filenames: List[str], ignores: List[str]) -> List[str]:
+def remove_ignore_components(filenames: List[str], ignores: Optional[List[str]] = None) -> List[str]:
     """
 
     :param filenames:
     :param ignores:
     :return:
     """
+    if ignores is None:
+        return filenames
+
     new_filenames = []
 
     for filename in filenames:

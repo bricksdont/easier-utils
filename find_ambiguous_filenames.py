@@ -69,10 +69,17 @@ def main():
 
     filenames = list(os.listdir(args.folder))
 
+    print("filenames[:10]")
+    print(filenames[:10])
+
     filenames_ignored = remove_ignore_components(filenames, args.ignores)
+
+    print("filenames_ignored[:10]")
+    print(filenames_ignored[:10])
 
     ambiguous_filenames = get_ambiguous_elements(filenames_ignored)
 
+    print("All ambiguous filenames:")
     print(ambiguous_filenames)
     print("Total number of ambiguous filenames: %d" % len(ambiguous_filenames))
 
